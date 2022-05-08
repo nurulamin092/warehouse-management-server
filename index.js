@@ -19,6 +19,10 @@ async function run() {
             const product = await cursor.toArray();
             res.send(product);
         });
+
+        app.get('/test', async (req, res) => {
+            res.send('test api update heroku deploy');
+        })
     }
     finally {
 
