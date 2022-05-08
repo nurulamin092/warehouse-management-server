@@ -13,8 +13,12 @@ async function run() {
     try {
         await client.connect();
         const productsCollection = client.db('warehouseDb').collection('product');
-
-
+        app.get('/products', async (req, res) => {
+            const query = {};
+            const cursor = productsCollection.find(query);
+            const product = await cursor.toArray();
+            res.send(product);
+        });
     }
     finally {
 
