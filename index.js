@@ -25,7 +25,13 @@ async function run() {
             const query = { _id: ObjectId(id) }
             const product = await productsCollection.findOne(query);
             res.send(product);
-        })
+        });
+
+        app.post('/products', async (req, res) => {
+            const addNewItem = req.body;
+            const result = await productsCollection.insertOne(addNewItem);
+            res.send(result);
+        });
     }
     finally {
 
