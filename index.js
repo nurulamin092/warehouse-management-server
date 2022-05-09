@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 require('dotenv').config()
 const app = express();
 const prot = process.env.PORT || 5000;
@@ -20,8 +20,11 @@ async function run() {
             res.send(product);
         });
 
-        app.get('/test', async (req, res) => {
-            res.send('test api update heroku deploy');
+        app.get('/products/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) }
+            const product = await productsCollection.findOne(query);
+            res.send(product);
         })
     }
     finally {
